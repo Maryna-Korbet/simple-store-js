@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="🇺🇦">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout</title>
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <a href="./index.html">
-      <button type="button">Home</button>
+      <button class="page-btn" type="button">Home</button>
     </a>
+    <button class="clear-cart-btn js-clear" type="button" hidden>Clear basket</button>
+    <h1 class="total-price-label js-cost"></h1>
+    <ul class="js-list"></ul>
 
     <script src="./js/checkout.js" type="module"></script>
   </body>
