@@ -1,46 +1,29 @@
+import createMarkupCP from '../templates/templateCP.js';
+import handlerClearBasket from '../helpers/handlerClearBasket.js';
+import { common } from '../common.js';
+
 const elements = {
     list: document.querySelector('.js-list'),
     cost: document.querySelector('.js-cost'),
     clearBtn: document.querySelector('.js-clear'),
 }
 
-const LS_KEY = 'checkout';
-
-//перевіряємо чи пустий basket
-const products = JSON.parse(localStorage.getItem(LS_KEY)) ?? [];
+//Check if the basket is empty
+const products = JSON.parse(localStorage.getItem(common.LS_KEY)) ?? [];
 
 let totalCost;
 
-//перевіряємо чи є в basket товари, якщо є -показуємо кнопку Clear basket  та  підраховуємо їх загальну вартість 
+//Check if there are products in the basket; if yes - show the Clear basket button and calculate their total cost
 if (products.length) {
     elements.clearBtn.hidden = false;
     totalCost = products.reduce((acc, { qty, price }) => acc + qty * price, 0);
 }
 
-//в залежності від того чи є товари в basket виводимо одне чи інше повідомлення
+//Depending on whether there are products in the basket, display one or another message
 elements.cost.textContent = totalCost ? `Total cost: ${totalCost} грн` : `Your basket is empty.`;
 
-//генеруємо розмітку basket
-elements.list.insertAdjacentHTML("afterbegin", createMarkup(products));
+//Generate the basket markup
+elements.list.insertAdjacentHTML("afterbegin", createMarkupCP(products));
 
+//Clear localStorage
 elements.clearBtn.addEventListener('click', handlerClearBasket);
-
-//функція генерації розмітки basket
-function createMarkup(arr) {
-    return arr.map(({img, name, qty, price}) => 
-        `<li class="cart-item">
-            <img src="${img}" alt="${name}" class="product-img" />
-            <h2>${name}</h2>
-            <p>Quantity: ${qty} грн</p>
-            <p>Total price: ${qty * price} грн</p>
-        </li>`).join('');
-}
-
-//функція очищення localStorage та одночасного повернення на сторінку Home після наптискання кнопки Clear basket
-function handlerClearBasket() {
-    localStorage.removeItem(LS_KEY);
-    location.href = '../index.html';
-}
-
-
-
