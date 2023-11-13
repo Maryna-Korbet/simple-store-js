@@ -14,7 +14,7 @@ function createMarkup(arr) {
         `<li class="cart-item">
             <img src="${img}" alt="${name}" class="product-img" />
             <h2>${name}</h2>
-            <p>Quantity: ${qty} грн</p>
+            <p>Quantity: ${qty} шт.</p>
             <p>Total price: ${qty * price} грн</p>
         </li>`).join('');
 }
