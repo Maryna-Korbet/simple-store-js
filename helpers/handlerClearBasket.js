@@ -10,7 +10,7 @@ import { common } from '../common.js';
 
 function handlerClearBasket() {
     localStorage.removeItem(common.LS_KEY);
-    location.href = '../index.html';
+    location.href = '/index.html';
 }
 
 export default handlerClearBasket;
